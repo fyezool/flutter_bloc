@@ -1,9 +1,9 @@
 os: linux
 language: android
 licenses:
-- 'android-sdk-preview-license-.+'
-- 'android-sdk-license-.+'
-- 'google-gdk-license-.+'
+- android-sdk-preview-license-.+
+- android-sdk-license-.+
+- google-gdk-license-.+
 android:
   components:
   - tools
@@ -18,9 +18,8 @@ jdk: oraclejdk8
 sudo: false
 addons:
   apt:
-    # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
     sources:
-    - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+    - ubuntu-toolchain-r-test
     packages:
     - libstdc++6
     - fonts-droid
@@ -29,10 +28,14 @@ before_script:
 - unzip -qq gradle-3.5-bin.zip
 - export GRADLE_HOME=$PWD/gradle-3.5
 - export PATH=$GRADLE_HOME/bin:$PATH
-- git clone https://github.com/flutter/flutter.git -b alpha --depth 1
+- git clone https://github.com/flutter/flutter.git
 script:
-- ./flutter/bin/flutter -v build apk
-
+- "./flutter/bin/flutter -v build apk"
 cache:
   directories:
-  - $HOME/.pub-cache
+  - "$HOME/.pub-cache"
+notifications:
+  slack:
+    secure: U47X3uIQELt1Uc9aHeSpHwEXtdGIOgWnKSCqZiIYnUB8c1Q0DJOpTC3axN1Zw4qX/qU/HSZ0bjpwOs4eDRmJIqAe89DMkpSE5amrlSakBEJj1mkM9mLjBHqj6f3Sn1WJ0YW827cE4b93LFdSJax2UJzyx4uMoJxm/fcU8f+XRvWWQFZjIuVXuD2/OSTSjPJB4vW4UfW6vz30ilyt/42oWrXYpZxxxjLDvNKNa6aGF3R5bTgcGmDtlrF06Hs371YZK6B9uSx9zPMTrd55OfX6JNjv4EQmP3uQi5Ci5wAvTEd7cv7tcYudzFwFWMH20NXmCagFVAJPuP93Vtgxixyx+FZt4ayv5sCcaHueHw4KwGQmwcS6jDiXLtxFNzt4Pw1BxQf0p0WFtkY6QjwyFp+I9eD1PlcEF5XJvJVozxwERBHCbrmBiCoXAFornvX9QG4YHvWy59Fy7CBBY+KG5XpIjPY9bSCpS8EiQB1PmgXqAzFifhzNZT0H7Vi9st50LdtUwXRFV9AjNXaOyGVHpaQRKM5rCW7N1qGoJKb1PRHyOeTkpESQHMdn/uX0UVmrwLZd5SHtSGfwkrBBLeL+iqkb4ET+WRjgizM8zseG3403M4yGXscApxOEuGZQITtODmYpSNoR38pgwT7svPqIuncjOe+/2+O5vDzuUNx0Pr5zqgk=
+    on_success: always
+    on_failure: always
